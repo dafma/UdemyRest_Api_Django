@@ -18,12 +18,28 @@ class ProductoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 La clase ProductoSerializer construida en la clase anterior, tiene varios métodos:
-
 is_valid(self, ...): Dice si la data es suficiente y válida para crear/actualizar una instancia modelo.
-
 save(self, ...): El cual sabe cómo crear o actualizar un modelo.
-
 create(self, validated_data, ..): Sabe cómo crear la instancia. Se puede sobreescribir para poder personalizar la tarea de creación.
-
 update(self, instance, validated_data, ..): Sabe cómo actualizar la instancia. Se puede sobreescribir para poder personalizar la tarea de actualización.
 
+LAS CLASES VIEWSET permiten put, delit, view, post
+TE ARMAN TODO EL SHOW
+
+
+Escogiendo cuál clase base usar
+Hemos visto 4 tipos de vistas
+
+Vistas Django Puro
+Sub Clases APIView
+Sub Clases generics.*
+viewsets.ModelViewSet
+
+Así que cómo o cuándo usar cual vista.  Aunque no es ley, sólo planteo posibilidades que considero más adecuadas.
+Use viewsets.ModelViewSet cuando va a permitir todas o la mayoría de las operaciones CRUD en un modelo.
+
+Use genéricos.* Cuando solo desee permitir algunas operaciones en un modelo
+Usa APIView cuando quieras personalizar completamente el comportamiento
+
+Bueno y con esto terminamos esta sección y ya sólo nos falta ver cómo tener control de acceso a nuestra
+api.
