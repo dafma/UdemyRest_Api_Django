@@ -1,6 +1,7 @@
 from django.urls import path, include
 from api.api_views import ProductoListR, ProductoDetalleR
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 from api.api_views import (
         ProductoList,
@@ -38,7 +39,8 @@ urlpatterns = [
 
     path('v3/usuarios/', UserCreate.as_view(), name='usuario_crear'),
 
-    path("v4/login/", LoginView.as_view(), name="login")
+    path("v4/login/", LoginView.as_view(), name="login"),
+    path("v4/login-drf/", views.obtain_auth_token, name='login_drf'),
 ]
 
 urlpatterns += router.urls
