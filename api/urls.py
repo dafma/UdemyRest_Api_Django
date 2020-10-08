@@ -11,7 +11,8 @@ from api.api_views import (
         CategoriaDetalle,
         SubCategoriaAdd,
         ProductoViewSet,
-        UserCreate
+        UserCreate,
+        LoginView
     )
 
 router = DefaultRouter()
@@ -36,6 +37,8 @@ urlpatterns = [
     path('v2/categorias/<int:cat_pk>/addsubcategorias/', SubCategoriaAdd.as_view(), name='add_sub'),
 
     path('v3/usuarios/', UserCreate.as_view(), name='usuario_crear'),
+
+    path("v4/login/", LoginView.as_view(), name="login")
 ]
 
 urlpatterns += router.urls

@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 # otra forma
 from rest_framework import generics, viewsets, serializers, status
@@ -126,4 +126,26 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
 
 class UserCreate(generics.CreateAPIView):
+    """
+        se esta invalidando con:
+            authentication_classes = ()
+            permission_classes = ()
+            las configuraciones globales que estan en el settings
+    """
+    authentication_classes = () # estamos utilizando este para invalidar "rest_framework.permissions.IsAuthenticated",
+    permission_classes = ()
     serializer_class = UserSerializer
+
+
+class LoginView(APIView):
+    permission_classes = ()
+
+    def post(self, request):
+        username = request.data.get("username")
+        passowrd =  request.data.get("password")
+        user = authenticate(username=username, password=passowrd)
+        if user:
+            return Response({"tokens": user.auth_token.key})
+        else:
+            return Response({"error": "Credenciales Incorrectas"},
+                             status=status.HTTP_400_BAD_REQUEST)

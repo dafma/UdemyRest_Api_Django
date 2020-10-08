@@ -43,3 +43,46 @@ Usa APIView cuando quieras personalizar completamente el comportamiento
 
 Bueno y con esto terminamos esta sección y ya sólo nos falta ver cómo tener control de acceso a nuestra
 api.
+
+CONFIGURACION ESQUEMA DE SEGURIDAD
+#settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+
+Luego de ejecutar las migraciones
+
+REST_FRAMEWORK = {
+    # ...
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+
+En la vista UserCreate, debemos anular la configuración global de autenticación
+
+para esto debemos setear en vacío las propiedades authentication_classes y permission_classes,
+
+agregándole lo siguiente a la clase UserCreate
+
+authentication_classes = ()
+permission_classes = ()
+También, debemos asegurarnos que se cree el token cuando el usuario se cree con la vista UserCreate,
+
+así que debemos actualizar el UserSerializer.
+
+#Importar Token
+
+from rest_framework.authtoken.models import Token
+
+agregando
+
+Token.objects.create(user=user)
+
+antes del return
+
