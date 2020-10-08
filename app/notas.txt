@@ -1,0 +1,9 @@
+bulk_create permite ingresar un array a la base de datos
+
+Categoria.objects.bulk_create([
+Categoria(descripcion='Desarrollo Web Django',activo=False),
+Categoria(descripcion='Replicacion con SymmetricDS', activo=True),
+Categoria(descripcion='Domina ORM de Django', activo=True),
+Categoria(descripcion='RestFul Api con Django FrameWork', activo=False),
+Categoria(descripcion='Administración PostgreSQL', activo=True)
+])
